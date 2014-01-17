@@ -112,7 +112,6 @@ Attendance and CPE Form</h4>
   <th>Name</th>
   <th>Company</th>
   <th>Position</th>
-  <th>Organization Name</th>
   <th>Nature of Business</th>
   <th>Email Address</th>
   <th>Mobile No.</th>
@@ -126,15 +125,17 @@ Attendance and CPE Form</h4>
    $contactInfo = $allContacts[$id];
    $certification = getCertification($id);
    $certifications = identifyCertification($certification);
+
+   $business = getNatureBusiness($dbh,$id);
+   $email = getEmailAddress($dbh,$id);
    
    echo "<tr>";
    echo "<td>$count</td>";
    echo "<td>".$contactInfo['name']."</td>";
    echo "<td>".$contactInfo['org']."</td>";
    echo "<td>".$contactInfo['job']."</td>";
-   echo "<td>organization name</td>";
-   echo "<td>nature of business</td>";
-   echo "<td>email address</td>";
+   echo "<td>".$business."</td>";
+   echo "<td>".$email."</td>";
    echo "<td>mobile no.</td>";
    echo "<td>signature</td>";
    echo "</tr>";
