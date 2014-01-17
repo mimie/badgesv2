@@ -1,12 +1,18 @@
 <?php
   include 'dbcon.php';
   include 'badges_functions.php';
+  include '../webapp/pire/pdo_conn.php';
+
+  $dbh = civicrmConnect();
 
   $eventId = $_GET["eventId"];
   $eventName = getEventName($eventId);
   $eventDate = getEventDate($eventId);
   $eventDate = DateTime::createFromFormat('Y-m-d H:i:s',$eventDate);
   $eventDate = $eventDate->format("j F Y");
+
+  $eventLocation = getLocation($dbh,$eventId);
+  $eventLocation = formatLocation($eventLocation);
 
   $speakerContactId = getSpeakerContactId($eventId);
   $speakerName = getParticipantName($speakerContactId);
@@ -94,7 +100,7 @@ Attendance and CPE Form</h4>
   </tr>
   <tr>
    <td><b>Venue</b></td>
-   <td></td>
+   <td><?=$eventLocation?></td>
   </tr>
  </table><br>
 </div>
