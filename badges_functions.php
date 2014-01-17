@@ -816,4 +816,58 @@ function formatLocation($locationDetails){
     return $location;
   }
 }
+
+
+function getNatureBusiness($dbh,$contactId){
+
+  $sql = $dbh->prepare("SELECT nature_of_business_37 as business
+                        FROM civicrm_value_business_data_1
+                        WHERE entity_id = ?
+                       ");
+  $sql->bindValue(1,$contactId,PDO::PARAM_INT);
+  $sql->execute();
+
+  $result = $sql->fetch(PDO::FETCH_ASSOC);
+  $business = $result["business"];
+
+  return $business;
+}
+
+function getEmailAddress($dbh,$contactId){
+
+ $sql = $dbh->prepare("SELECT email FROM civicrm_email
+                       WHERE contact_id = ?
+                       AND location_type_id = 1
+                      ");
+ $sql->bindValue(1,$contactId,PDO::PARAM_INT);
+ $sql->execute();
+
+ $result = $sql->fetch(PDO::FETCH_ASSOC);
+ $email1 = $result["email"];
+ $sql = $dbh->prepare("SELECT email FROM civicrm_email
+                       WHERE contact_id = ?
+                       AND location_type_id = 3
+                      ");
+ $sql->bindValue(1,$contactId,PDO::PARAM_INT);
+ $sql->execute();
+
+ $result = $sql->fetch(PDO::FETCH_ASSOC);
+ $email2 = $result["email"];
+
+ if(isset($email1) && isset($email2)){
+   return $email1."/".$email2;
+
+ }
+
+ elseif(!$email1){
+   return $email2;
+ }
+
+
+ else{
+
+    return $email1;
+  }
+
+}
 ?>
