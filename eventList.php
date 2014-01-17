@@ -112,8 +112,10 @@ Attendance and CPE Form</h4>
   <th>Name</th>
   <th>Company</th>
   <th>Position</th>
-  <th>Yrs in Co / Current Position</th>
-  <th>Certifications</th>
+  <th>Organization Name</th>
+  <th>Nature of Business</th>
+  <th>Email Address</th>
+  <th>Mobile No.</th>
   <th>Signature</th>
  </tr>
 
@@ -130,9 +132,11 @@ Attendance and CPE Form</h4>
    echo "<td>".$contactInfo['name']."</td>";
    echo "<td>".$contactInfo['org']."</td>";
    echo "<td>".$contactInfo['job']."</td>";
-   echo "<td></td>";
-   echo "<td>".$certifications."</td>";
-   echo "<td></td>";
+   echo "<td>organization name</td>";
+   echo "<td>nature of business</td>";
+   echo "<td>email address</td>";
+   echo "<td>mobile no.</td>";
+   echo "<td>signature</td>";
    echo "</tr>";
     
    $count++;
