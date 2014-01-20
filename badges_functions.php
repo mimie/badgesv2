@@ -62,7 +62,7 @@ function getEventDate($eventId){
         )*/
 function getAllContacts(){
 
-  $sql = "SELECT id,display_name,organization_name,job_title FROM civicrm_contact";
+  $sql = "SELECT id,sort_name,organization_name,job_title FROM civicrm_contact ORDER BY organization_name";
   $result = mysql_query($sql) or die(mysql_error());
 
   $contacts = array();
@@ -70,7 +70,7 @@ function getAllContacts(){
 
   while($row = mysql_fetch_assoc($result)){
      $contactId = $row['id'];
-     $displayName = $row['display_name'];
+     $displayName = $row['sort_name'];
      $orgName = $row['organization_name'];
      $job = $row['job_title'];
 
@@ -855,7 +855,7 @@ function getEmailAddress($dbh,$contactId){
  $email2 = $result["email"];
 
  if(isset($email1) && isset($email2)){
-   return $email1."/".$email2;
+   return $email1."<br>".$email2;
 
  }
 
@@ -868,6 +868,49 @@ function getEmailAddress($dbh,$contactId){
 
     return $email1;
   }
+
+}
+function getPhone(PDO $dbh,$contactId){
+
+ $sql = $dbh->prepare("SELECT phone
+                       FROM civicrm_phone
+                       WHERE contact_id = :contactId
+                       AND phone_type_id = 2
+                      ");
+ $sql->execute(array(':contactId'=>$contactId));
+ $result = $sql->fetch(PDO::FETCH_ASSOC);
+ $phone = $result["phone"];
+
+ return $phone;
+
+}
+
+function getPhone2(PDO $dbh,$contactId){
+ $sql = $dbh->prepare("SELECT mobile_number_34 as phone
+                       FROM civicrm_value_address_10
+                       WHERE entity_id = :contactId
+                      ");
+ $sql->execute(array(':contactId'=>$contactId));
+ $result = $sql->fetch(PDO::FETCH_ASSOC);
+ $phone = $result["phone"];
+
+ return $phone;
+
+}
+
+function getParticipantByEvent($dbh,$eventId){
+
+ $sql = $dbh->prepare("SELECT cc.id,sort_name,organization_name,job_title FROM civicrm_contact cc, civicrm_event ce, civicrm_participant cp
+                       WHERE cc.id = cp.contact_id
+                       AND cp.event_id = ce.id
+                       AND ce.id = ? 
+                       ORDER BY organization_name
+                      ");
+ $sql->bindValue(1,$eventId,PDO::PARAM_INT);
+ $sql->execute();
+ $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+ return $result;
 
 }
 ?>
