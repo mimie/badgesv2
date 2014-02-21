@@ -681,6 +681,26 @@ function getSpeakerContactId($eventId){
 
 }
 
+function getAllSpeakers($dbh,$eventId){
+
+  $sql = $dbh->prepare("SELECT cc.id,cc.display_name FROM civicrm_participant cp, civicrm_contact cc
+                        WHERE cp.event_id = ? AND role_id = '4'
+                        AND cp.contact_id = cc.id");
+  $sql->bindValue(1,$eventId,PDO::PARAM_INT);
+  $sql->execute();
+  $speakers = $sql->fetchAll(PDO::FETCH_ASSOC);
+  $names = array();
+
+  foreach($speakers as $key => $field){
+     $names[] = $field["display_name"];
+  }
+
+  $speakers = rtrim(implode(', ', $names), ',');
+
+  return $speakers;
+  
+}
+
 function getParticipantName($contactId){
 
  $sql = "SELECT display_name FROM civicrm_contact WHERE id='$contactId'";

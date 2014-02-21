@@ -85,8 +85,9 @@ table#attachments td,th{
   $eventLocation = getLocation($dbh,$eventId);
   $eventLocation = formatLocation($eventLocation);
 
-  $speakerContactId = getSpeakerContactId($eventId);
-  $speakerName = getParticipantName($speakerContactId);
+  //$speakerContactId = getSpeakerContactId($eventId);
+  //$speakerName = getParticipantName($speakerContactId);
+  $speakers = getAllSpeakers($dbh,$eventId);
 
   //$contactIds = getEventParticipantId($eventId);
 
@@ -113,7 +114,7 @@ Attendance and CPE Form</h4>
   </tr>
   <tr>
    <td><b>Speaker</b></td> 
-   <td><?=$speakerName?></td>
+   <td><?=$speakers?></td>
   </tr>
   <tr>
    <td><b>Venue</b></td>
