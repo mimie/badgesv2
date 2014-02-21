@@ -380,7 +380,8 @@ function displaySearchEvent(array $events){
    $html = "<table>"
          . "<th>Event Title</th>"
          . "<th>Event Date</th>"
-         . "<th>View Participant List</th>";
+         . "<th>View Participant List</th>"
+         . "<th>Download Event Form</th>";
 
    foreach($events as $eventId=>$details){
         $title = $details["title"];
@@ -391,6 +392,7 @@ function displaySearchEvent(array $events){
          . "<td>$title</td>"
          . "<td>$date</td>"
          . "<td class='center'><a href='participants.php?eventId=$eventId'>Participants</a></td>"
+         . "<td><a href='eventList.php?eventId=$eventId' target='_blank'>Event Form</a></td>"
          . "</tr>";
   }
 
