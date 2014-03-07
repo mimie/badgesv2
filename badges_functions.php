@@ -926,7 +926,7 @@ function getParticipantByEvent($dbh,$eventId){
                        WHERE cc.id = cp.contact_id
                        AND cp.event_id = ce.id
                        AND ce.id = ?
-                       AND cp.status_id = '1' 
+                       AND cp.status_id IN (1,2,5)
                        ORDER BY organization_name
                       ");
  $sql->bindValue(1,$eventId,PDO::PARAM_INT);
