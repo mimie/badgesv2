@@ -528,11 +528,13 @@ function resultSearchParticipant($eventId,$searchCriteria){
 function getParticipantDetails($contactId){
 
   $participant = array();
-  $sql = "SELECT display_name, organization_name FROM civicrm_contact WHERE id = '$contactId'";
+  $sql = "SELECT first_name,nick_name,display_name, organization_name FROM civicrm_contact WHERE id = '$contactId'";
   $result = mysql_query($sql) or die(mysql_error());
   $row = mysql_fetch_assoc($result);
   $participant["name"] = $row["display_name"];
   $participant["org"] = $row["organization_name"];
+  $participant["fname"] = $row["first_name"];
+  $participant["nickname"] = $row["nick_name"];
 
   return $participant;
 }
@@ -554,6 +556,10 @@ function htmlBadge($eventId,array $participant,array $properties){
 
    $name = $participant["name"];
    $orgName = $participant["org"];
+   $firstname = $participant["fname"];
+   $nickname = $participant["nick_name"];
+
+   $badgeName = $nickname != NULL ? $nickname : $firstname;
 
    $htmlBadge = "<html>"
               . "<head>"
@@ -583,7 +589,8 @@ function htmlBadge($eventId,array $participant,array $properties){
 
     $htmlBadge = $htmlBadge."<tr>"
                . "<td colspan='2' align='center'>"
-               . "<b><font size='".$nameSize."'>".$name."</b></br></font>"
+               . "<b><font size='".$nameSize."'>".$badgeName."</b></br></font>"
+               . "<font size='".$orgSize."'>".$name."</font></br>"
                . "<font size='".$orgSize."'>".$orgName."</font></td>"
                . "</tr>";
   
