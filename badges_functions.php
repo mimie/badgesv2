@@ -623,10 +623,12 @@ function htmlCustomizeBadge($eventId, array $participant, array $properties){
 
    $name = $participant["name"];
    $orgName = $participant["org"];
+   $firstname = $participant["fname"];
+   $nickname = $participant["nickname"];
 
+   $badgeName = $nickname != NULL ? $nickname : $firstname;
 
-
-$htmlBadge = "<div id = 'badge'>"
+   $htmlBadge = "<div id = 'badge'>"
             . "<table>"
             . "<tr>"
             . "<td align='center' width='".$imgWidth."' height='".$imgHeight."'>"
@@ -635,21 +637,22 @@ $htmlBadge = "<div id = 'badge'>"
             . "<font style='font-size:".$titleSize.";'><b>".$eventName."</b></td>"
             . "</tr>";
  
-$htmlBadge = $htmlBadge."<tr>"
+   $htmlBadge = $htmlBadge."<tr>"
                 . "<td colspan='2' align='center'>"
-                . "<b><font style='font-size:".$nameSize.";'>".$name."</b></br></font>"
+                . "<b><font style='font-size:".$nameSize.";'>".$badgeName."</b></br></font>"
+                . "<font style='font-size:".$orgSize.";'>".$name."</font></br>"
                 . "<font style='font-size:".$orgSize.";'>".$orgName."</font></td>"
                 . "</tr>";
  
-$htmlBadge = $htmlBadge."<tr>"
+  $htmlBadge = $htmlBadge."<tr>"
                 . "<td colspan=2 align='right'>"
                 . "<font style='font-size:".$dateSize.";'>"
                 . $eventDate . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>"
                 . "</font></tr>";
  
-$htmlBadge = $htmlBadge."</table>"
+  $htmlBadge = $htmlBadge."</table>"
                 . "</div>";
-return $htmlBadge;
+  return $htmlBadge;
 }
 
 /*
