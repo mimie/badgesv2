@@ -115,8 +115,8 @@ function displayAllEvents(){
   $html = $html."<table>"
         . "<th>Event Title</th>"
         . "<th>Event Date</th>"
-        . "<th>View Participant List</th>"
-        . "<th>Download Event Form</th>";
+        . "<th>ID Badge</th>"
+        . "<th>Registration Form</th>";
 
   foreach($allEvents as $eventId=>$details){
         $title = $details["title"];
