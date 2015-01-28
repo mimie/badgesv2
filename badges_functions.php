@@ -92,7 +92,8 @@ function getAllContacts(){
 function getEventParticipantId($eventId){
 
   $eventId = mysql_real_escape_string($eventId);
-  $sql = "SELECT contact_id FROM civicrm_participant WHERE event_id = '{$eventId}'";
+  $sql = "SELECT contact_id FROM civicrm_participant,civicrm_contact WHERE event_id = '{$eventId}'"
+       . " AND civicrm_contact.id=civicrm_participant.contact_id AND is_deleted='0'";
   $result = mysql_query($sql) or die(mysql_error());
 
   $contactIds = array();

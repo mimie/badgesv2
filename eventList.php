@@ -72,7 +72,7 @@ table#attachments td,th{
 <?php
   include 'dbcon.php';
   include 'badges_functions.php';
-  include '../webapp/pire/pdo_conn.php';
+  include '../pire/pdo_conn.php';
 
   $dbh = civicrmConnect();
 
